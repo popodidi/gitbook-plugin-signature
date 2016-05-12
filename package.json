@@ -1,18 +1,22 @@
 {
-    "name": "gitbook-plugin-signature-footer",
-    "description": "Sample plugin for GitBook",
-    "main": "index.js",
-    "version": "1.0.2",
-    "engines": {
-        "gitbook": "*"
-    },
-    "homepage": "https://github.com/popodidi/gitbook-plugin-signature-footer",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/popodidi/gitbook-plugin-signature-footer.git"
-    },
-    "license": "Apache 2",
-    "bugs": {
-        "url": "https://github.com/popodidi/gitbook-plugin-signature-footer/issues"
-    }
+  "name": "gitbook-plugin-signature",
+  "description": "Sample plugin for GitBook",
+  "main": "index.js",
+  "version": "1.1.0",
+  "engines": {
+    "gitbook": "*"
+  },
+  "homepage": "https://github.com/popodidi/gitbook-plugin-signature",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/popodidi/gitbook-plugin-signature.git"
+  },
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/popodidi/gitbook-plugin-signature/issues"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "moment": "^2.10.6"
+  }
 }

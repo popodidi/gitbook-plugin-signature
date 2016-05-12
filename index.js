@@ -1,70 +1,45 @@
+/**
+ * [moment: the moment module]
+ * @type {[type]}
+ */
+
+const moment = require('moment');
+const debug = require('debug')('gitbook-plugin-signature-footer');
+/**
+ * [main module]
+ * @type {Object}
+ */
+
 module.exports = {
-    // Extend website resources and html
-    website: {
-        assets: "./book",
-        js: [
-            "test.js"
-        ],
-        css: [
-            "test.css"
-        ],
-        html: {
-            "html:start": function() {
-                return "<!-- Start book " + this.options.title + " -->"
-            },
-            "html:end": function() {
-                return "<!-- End of book " + this.options.title + " -->"
-            },
-
-            "head:start": "<!-- head:start -->",
-            "head:end": "<!-- head:end -->",
-
-            "body:start": "<!-- body:start -->",
-            "body:end": "<!-- body:end -->"
-        }
-    },
-
-    // Extend ebook resources and html
-    website: {
-        assets: "./book",
-        js: [
-            "test.js"
-        ],
-        css: [
-            "test.css"
-        ],
-        html: {
-            "html:start": function() {
-                return "<!-- Start book " + this.options.title + " -->"
-            },
-            "html:end": function() {
-                return "<!-- End of book " + this.options.title + " -->"
-            },
-
-            "head:start": "<!-- head:start -->",
-            "head:end": "<!-- head:end -->",
-
-            "body:start": "<!-- body:start -->",
-            "body:end": "<!-- body:end -->"
-        }
-    },
-
     // Extend templating blocks
     blocks: {
-        // Author will be able to write "{% myTag %}World{% endMyTag %}"
-        myTag: {
-            process: function(blk) {
-                return "Hello " + blk.body;
+        // Author will be able to write "{% title %}World{% endtitle %}"
+        title: {
+            process: function(block) {
+                return "Hello " + block.body;
             }
         }
     },
 
     // Extend templating filters
     filters: {
+        dateFormat: function(d, format, utc) {
+            return moment(d).utcOffset(parseInt(utc)).format(format);
+        },
         // Author will be able to write "{{ 'test'|myFilter }}"
-        hello: function(name) {
-            return 'Hello '+name;
-        }
+        created: function(name) {
+            return "<font color=\"gray\">created by " + name + "</font><br>"; //+ moment(file.mtime ).utcOffset(parseInt(defaultOption.utcOffset)).format(defaultOption.format);
+        },
+        lastModified: function(name) {
+            return "<font color=\"gray\">last modified by " + name + "</font><br>";
+        },
+
+        copyright: function(organization) {
+            const copyright = '<font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
+            return '\n\n\n\n\n\n\n' + '<center>' + copyright + '</center>';
+        },
+
+
     },
 
     // Hook process during build
@@ -81,9 +56,13 @@ module.exports = {
             console.log("finish!");
         },
 
-        "page": function(page) {
-            var text2 = "Chang, Hao";
-            page.content = page.content.concat("<br> ", text2);
+        "page:before": function(page) {
+            const defaultOption = {
+                'format': 'YYYY/MM/DD HH:mm:ss',
+                'utcOffset': '8'
+            };
+            const timeStamp = ' <font color=\"gray\">{{ file.mtime | dateFormat("' + defaultOption.format + '", ' + defaultOption.utcOffset + ') }}</font>';
+            page.content = page.content.replace('**lastModifiedTimestamp**', timeStamp);
             return page;
         }
     }
