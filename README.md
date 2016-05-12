@@ -3,7 +3,7 @@
 ## book.json
 
 ```json
-"plugins": ["gitbook-plugin-signature"]
+"plugins": ["gitbook-plugin-signature@git+https://github.com/popodidi/gitbook-plugin-signature.git"]
 ```
 
 ## Usage
@@ -19,4 +19,10 @@
 
 ```
 **lastModifiedTimestamp**
+```
+
+### copyright
+
+```
+{{ 'Hao'|copyright }}
 ```
