@@ -81,8 +81,8 @@ module.exports = {
             console.log("finish!");
         },
 
-            "page": function(page) {
-            var text2 = "Chang, Hao"
+        "page": function(page) {
+            var text2 = "Chang, Hao";
             page.content = page.content.concat("<br> ", text2);
             return page;
         }
