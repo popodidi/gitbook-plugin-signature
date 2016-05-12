@@ -4,7 +4,6 @@
  */
 
 const moment = require('moment');
-const debug = require('debug')('gitbook-plugin-signature-footer');
 /**
  * [main module]
  * @type {Object}
