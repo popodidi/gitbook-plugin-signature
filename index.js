@@ -10,10 +10,10 @@ module.exports = {
         ],
         html: {
             "html:start": function() {
-                return "<!-- Start book "+this.options.title+" -->"
+                return "<!-- Start book " + this.options.title + " -->"
             },
             "html:end": function() {
-                return "<!-- End of book "+this.options.title+" -->"
+                return "<!-- End of book " + this.options.title + " -->"
             },
 
             "head:start": "<!-- head:start -->",
@@ -35,10 +35,10 @@ module.exports = {
         ],
         html: {
             "html:start": function() {
-                return "<!-- Start book "+this.options.title+" -->"
+                return "<!-- Start book " + this.options.title + " -->"
             },
             "html:end": function() {
-                return "<!-- End of book "+this.options.title+" -->"
+                return "<!-- End of book " + this.options.title + " -->"
             },
 
             "head:start": "<!-- head:start -->",
@@ -54,7 +54,7 @@ module.exports = {
         // Author will be able to write "{% myTag %}World{% endMyTag %}"
         myTag: {
             process: function(blk) {
-                return "Hello "+blk.body;
+                return "Hello " + blk.body;
             }
         }
     },
@@ -62,8 +62,8 @@ module.exports = {
     // Extend templating filters
     filters: {
         // Author will be able to write "{{ 'test'|myFilter }}"
-        myFilter: function(s) {
-            return "Hello "+s;
+        hello: function(name) {
+            return 'Hello '+name;
         }
     },
 
@@ -79,6 +79,12 @@ module.exports = {
         // This is called after the book generation
         "finish": function() {
             console.log("finish!");
+        }
+
+            "page": function(page) {
+            var text2 = "Chang, Hao"
+            page.content = page.content.concat("<br> ", text2);
+            return page;
         }
     }
 };
