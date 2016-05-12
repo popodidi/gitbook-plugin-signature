@@ -79,7 +79,7 @@ module.exports = {
         // This is called after the book generation
         "finish": function() {
             console.log("finish!");
-        }
+        },
 
             "page": function(page) {
             var text2 = "Chang, Hao"
