@@ -58,7 +58,7 @@ module.exports = {
 
         "page:before": function(page) {
             const defaultOption = {
-                'format': 'YYYY/MM/DD HH:mm:ss',
+                'format': 'YYYY/MM/DD',
                 'utcOffset': '8'
             };
             const timeStamp = ' <font color=\"gray\">{{ file.mtime | dateFormat("' + defaultOption.format + '", ' + defaultOption.utcOffset + ') }}</font><br><br>';
