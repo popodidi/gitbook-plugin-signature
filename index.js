@@ -35,7 +35,7 @@ module.exports = {
         },
 
         copyright: function(organization) {
-            const copyright = '<font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
+            const copyright = '<br><br><br><font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
             return '\n\n\n\n\n\n\n' + '<center>' + copyright + '</center>';
         },
 
@@ -61,7 +61,7 @@ module.exports = {
                 'format': 'YYYY/MM/DD HH:mm:ss',
                 'utcOffset': '8'
             };
-            const timeStamp = ' <font color=\"gray\">{{ file.mtime | dateFormat("' + defaultOption.format + '", ' + defaultOption.utcOffset + ') }}</font>';
+            const timeStamp = ' <font color=\"gray\">{{ file.mtime | dateFormat("' + defaultOption.format + '", ' + defaultOption.utcOffset + ') }}</font><br><br>';
             page.content = page.content.replace('**lastModifiedTimestamp**', timeStamp);
             return page;
         }
