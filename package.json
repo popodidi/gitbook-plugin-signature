@@ -2,7 +2,7 @@
   "name": "gitbook-plugin-signature",
   "description": "singature of article",
   "main": "index.js",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "engines": {
     "gitbook": "*"
   },
@@ -16,6 +16,7 @@
     "url": "https://github.com/popodidi/gitbook-plugin-signature/issues"
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "moment": "^2.10.6"
   }
 }
