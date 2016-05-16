@@ -4,6 +4,34 @@ This is a plugin for automatically adding timestamp and copyright terms at the t
 
 Feel free to create issues for any discussion.
 
+## Example
+
+### `.md` file
+
+```
+{% set author = "Hao" %}
+# Title of the Article
+
+content
+.
+.
+```
+
+### Output
+
+> last modified by Hao, 2016/05/05 05:05:05
+
+> # Title of the Article
+
+> content<br>
+> .<br>
+> .<br>
+> .<br>
+> <br>
+> <br>
+
+> <center>Copyright © 2016 Hao.<br>All rights reserved.</center>
+
 ## Usage
 
 ### book.json
