@@ -36,10 +36,8 @@ content
 
 ### book.json
 
-I am not sure why it goes wrong when you don't specify the url. However, it still works with this setting as we put specific url
-
 ```json
-"plugins": ["gitbook-plugin-signature@git+https://github.com/popodidi/gitbook-plugin-signature.git"]
+"plugins": ["signature"]
 ```
 
 ```json
