@@ -2,7 +2,7 @@
 
 This is a plugin for automatically adding timestamp and copyright terms at the top and the bottom of every article. For now, it is using body font and you can specify the color, copyright owner and author of each article.
 
-Feel free to create issues for any discussion.
+Feel free to create issues or pull request for any discussion.
 
 ## Example
 
@@ -43,13 +43,12 @@ content
 ```json
 "pluginsConfig": {
       "gitbook-plugin-signature":{
-          "timeStampFormat" : "YYYY/MM/DD HH:mm:ss",
           "autoTimeStamp":{
             "color":"gray",
             "author":"Hao",
             "timeStampFormat": "YYYY/MM/DD HH:mm:ss"
           },
-          "copyright":{
+          "autoCopyright":{
               "color":"gray",
                "owner":"Hao",
                "center":true
@@ -58,13 +57,12 @@ content
   }
 ```
 
-`autoTimeStamp.author` and `copyright.owner` will be set to `book.author` if not specified.<br>
+`autoTimeStamp.author` and `autoCopyright.owner` will be set to `book.author` if not specified.<br>
 If you don't want to automatically add copyright, simply drop the part in `pluginsConfig` as follows
 
 ```json
 "pluginsConfig": {
       "gitbook-plugin-signature":{
-          "timeStampFormat" : "YYYY/MM/DD HH:mm:ss",
           "autoTimeStamp":{
             "color":"gray",
             "timeStampFormat": "YYYY/MM/DD HH:mm:ss"
@@ -88,25 +86,18 @@ content
 .
 ```
 
-## Deprecated Usage
+## Change Log
 
-These methods are deprecated and will be discarded in the next version. So will the `pluginsConfig['gitbook-plugin-signature'].timeStampFormat`, which specifies the format of `**lastModifiedTimestamp**`.
+### 1.3.0
 
-### created/modified
+#### `book.json`
 
-```
-{{ 'Hao'|created}}
-{{ 'Hao'|lastModified}}
-```
+- remove ~~`"timeStampFormat" : "YYYY/MM/DD HH:mm:ss"`~~
+- replace ~~`"copyright"`~~ by `"autoCopyright"`
 
-### Last Modified Timestamp
+#### `.md`file
 
-```
-**lastModifiedTimestamp**
-```
-
-### copyright
-
-```
-{{ 'Hao'|copyright }}
-```
+- remove ~~`{{ 'Hao'|created}}`~~
+- remove ~~`{{ 'Hao'|lastModified}}`~~
+- remove ~~`**lastModifiedTimestamp**`~~
+- remove ~~`{{ 'Hao'|copyright }}`~~

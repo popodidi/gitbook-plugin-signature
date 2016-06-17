@@ -26,13 +26,6 @@ module.exports = {
         dateFormat: function(d, format, utc) {
             return moment(d).utcOffset(parseInt(utc)).format(format);
         },
-        // Author will be able to write "{{ 'test'|myFilter }}"
-        created: function(name) {
-            return "<font color=\"gray\">created by " + name + "</font><br>"; //+ moment(file.mtime ).utcOffset(parseInt(defaultOption.utcOffset)).format(defaultOption.format);
-        },
-        lastModified: function(name) {
-            return "<font color=\"gray\">last modified by " + name + "</font><br>";
-        },
 
         copyright: function(organization) {
             const copyright = '<br><br><br><font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
@@ -48,12 +41,12 @@ module.exports = {
 
         // This is called before the book is generated
         "init": function() {
-            console.log("init!");
+            console.log("generating signature......");
         },
 
         // This is called after the book generation
         "finish": function() {
-            console.log("finish!");
+            console.log("signature generated!");
         },
 
         "page:before": function(page) {
@@ -63,28 +56,19 @@ module.exports = {
             };
             var color = 'gray';
 
-            // time stamp
-            var format = defaultOption.format;
-            if (this.config.options.pluginsConfig['gitbook-plugin-signature'].timeStampFormat) {
-                format = this.config.options.pluginsConfig['gitbook-plugin-signature'].timeStampFormat;
-            }
-            const timeStamp = ' <font color=\"gray\">{{ file.mtime | dateFormat("' + format + '", ' + defaultOption.utcOffset + ') }}</font>';
-            page.content = page.content.replace('**lastModifiedTimestamp**', timeStamp);
-
-
             // autoTimeStamp
-            if (this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp) {
-                var author = this.config.options.author;
+            if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp) {
+                var author = this.config.get('author');
                 var timeStampFormat = defaultOption.format;
 
                 // if (this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.author){
                 //   author = this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.author;
                 // }
-                if (this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.timeStampFormat) {
-                    timeStampFormat = this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.timeStampFormat;
+                if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.timeStampFormat) {
+                    timeStampFormat = this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.timeStampFormat;
                 }
-                if (this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.color) {
-                    color = this.config.options.pluginsConfig['gitbook-plugin-signature'].autoTimeStamp.color;
+                if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.color) {
+                    color = this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.color;
                 }
 
                 const colorLeft = ' <font color=\"' + color + '\">';
@@ -103,20 +87,20 @@ module.exports = {
             }
 
             // auto copyright
-            if (this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright) {
-                var owner = this.config.options.author;
+            if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright) {
+                var owner = this.config.get('author');
                 const year = '{{ file.mtime | dateFormat("' + 'YYYY' + '", ' + defaultOption.utcOffset + ') }}';
                 var centerLeft, centerRight = '';
 
-                if (this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright.owner) {
-                    owner = this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright.owner;
+                if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner) {
+                    owner = this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner;
                 }
-                if (this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright.center) {
+                if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.center) {
                     centerLeft = '<center>';
                     centerRight = '</center>';
                 }
-                if (this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright.color) {
-                    color = this.config.options.pluginsConfig['gitbook-plugin-signature'].copyright.color;
+                if (this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color) {
+                    color = this.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color;
                 }
 
                 const colorLeft = ' <font color=\"' + color + '\">';
