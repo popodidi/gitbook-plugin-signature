@@ -31,6 +31,10 @@ module.exports = {
             const copyright = '<br><br><br><font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
             return '\n\n\n\n\n\n\n' + '<center>' + copyright + '</center>';
         },
+        signature: function (key) {
+            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
+            return signature;
+        }
 
 
     },

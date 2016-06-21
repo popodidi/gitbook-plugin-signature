@@ -49,12 +49,15 @@ content
             "timeStampFormat": "YYYY/MM/DD HH:mm:ss"
           },
           "autoCopyright":{
-              "color":"gray",
-               "owner":"Hao",
-               "center":true
-           }
+             "color":"gray",
+             "owner":"Hao",
+             "center":true
+          },
+          "signature":{
+            "key": "customized signature"
+          }
       }
-  }
+}
 ```
 
 `autoTimeStamp.author` and `autoCopyright.owner` will be set to `book.author` if not specified.<br>
@@ -86,7 +89,41 @@ content
 .
 ```
 
+### Customize signature
+
+You can set your customized signature content in `book.json` and use it in `.md` files.
+
+#### `book.json`
+
+```json
+"pluginsConfig": {
+    "gitbook-plugin-signature":{
+        "signature":{
+            "key": "customized signature"
+        }
+    }
+}
+```
+
+#### `.md`file
+
+```markdown
+{{'key'|signature}}
+```
+
+---------------------
+
 ## Change Log
+
+### 1.4.0
+
+#### `book.json`
+
+- add `signature`
+
+#### `.md`file
+
+- add `{{'key'|signature}}`
 
 ### 1.3.0
 
