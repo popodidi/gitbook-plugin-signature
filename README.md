@@ -6,7 +6,7 @@ Feel free to create issues or pull request for any discussion.
 
 ## Example
 
-### `.md` file
+### .md file
 
 ```
 {% set author = "Hao" %}
@@ -93,7 +93,7 @@ content
 
 You can set your customized signature content in `book.json` and use it in `.md` files.
 
-#### `book.json`
+#### book.json
 
 ```json
 "pluginsConfig": {
@@ -105,10 +105,12 @@ You can set your customized signature content in `book.json` and use it in `.md`
 }
 ```
 
-#### `.md`file
+#### .md file
 
 ```markdown
 {{'key'|signature}}
+or the simplified version
+{{'key'|s}}
 ```
 
 ---------------------
@@ -121,28 +123,33 @@ gitbook-plugin-signature is freely distributable under the terms of the [MIT lic
 
 ## Change Log
 
+### 1.4.2
+
+- update `README.md`
+- add simplified usage `{{'key'|s}}`
+
 ### 1.4.1
 
 - update `package.json`, `README.md` and liscence
 
 ### 1.4.0
 
-#### `book.json`
+#### book.json
 
 - add `signature`
 
-#### `.md`file
+#### .md file
 
 - add `{{'key'|signature}}`
 
 ### 1.3.0
 
-#### `book.json`
+#### book.json
 
 - remove ~~`"timeStampFormat" : "YYYY/MM/DD HH:mm:ss"`~~
 - replace ~~`"copyright"`~~ by `"autoCopyright"`
 
-#### `.md`file
+#### .md file
 
 - remove ~~`{{ 'Hao'|created}}`~~
 - remove ~~`{{ 'Hao'|lastModified}}`~~

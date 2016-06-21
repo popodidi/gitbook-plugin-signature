@@ -34,6 +34,10 @@ module.exports = {
         signature: function (key) {
             const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
             return signature;
+        },
+        s: function (key) {
+            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
+            return signature;
         }
 
 

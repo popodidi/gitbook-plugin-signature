@@ -2,11 +2,11 @@
   "name": "gitbook-plugin-signature",
   "description": "gitbook plugin - singature of article",
   "main": "index.js",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "engines": {
     "gitbook": "*"
   },
-  "keyword": ["gitbook-plugin", "gitbook", "singature", "copyright", "timestamp"],
+  "keywords": ["gitbook-plugin", "gitbook", "singature", "copyright", "timestamp"],
   "homepage": "https://github.com/popodidi/gitbook-plugin-signature",
   "repository": {
     "type": "git",
