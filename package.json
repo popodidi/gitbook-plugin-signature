@@ -1,17 +1,18 @@
 {
   "name": "gitbook-plugin-signature",
-  "description": "singature of article",
+  "description": "gitbook plugin - singature of article",
   "main": "index.js",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "engines": {
     "gitbook": "*"
   },
+  "keyword": ["gitbook-plugin", "gitbook", "singature", "copyright", "timestamp"],
   "homepage": "https://github.com/popodidi/gitbook-plugin-signature",
   "repository": {
     "type": "git",
     "url": "https://github.com/popodidi/gitbook-plugin-signature.git"
   },
-  "license": "Apache 2",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/popodidi/gitbook-plugin-signature/issues"
   },

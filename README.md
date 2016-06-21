@@ -113,7 +113,17 @@ You can set your customized signature content in `book.json` and use it in `.md`
 
 ---------------------
 
+## Liscence
+
+gitbook-plugin-signature is freely distributable under the terms of the [MIT license](https://github.com/popodidi/gitbook-plugin-signature/blob/master/LICENSE).
+
+---------------------
+
 ## Change Log
+
+### 1.4.1
+
+- update `package.json`, `README.md` and liscence
 
 ### 1.4.0
 
