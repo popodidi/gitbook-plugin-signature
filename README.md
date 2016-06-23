@@ -20,16 +20,16 @@ content
 ### Output
 
 > last modified by Hao, 2016/05/05 05:05:05
-
+>
 > # Title of the Article
-
+>
 > content<br>
 > .<br>
 > .<br>
 > .<br>
 > <br>
 > <br>
-
+>
 > <center>Copyright © 2016 Hao.<br>All rights reserved.</center>
 
 ## Usage
@@ -45,7 +45,6 @@ content
       "gitbook-plugin-signature":{
           "autoTimeStamp":{
             "color":"gray",
-            "author":"Hao",
             "timeStampFormat": "YYYY/MM/DD HH:mm:ss"
           },
           "autoCopyright":{
@@ -60,8 +59,10 @@ content
 }
 ```
 
-`autoTimeStamp.author` and `autoCopyright.owner` will be set to `book.author` if not specified.<br>
-If you don't want to automatically add copyright, simply drop the part in `pluginsConfig` as follows
+If you don't want to automatically add timestamp or copyright, simply drop the part in `pluginsConfig`.
+
+### Auto Timestamp
+Default author of each article will be set to the last git commiter of the file.<br>
 
 ```json
 "pluginsConfig": {
@@ -74,11 +75,9 @@ If you don't want to automatically add copyright, simply drop the part in `plugi
   }
 ```
 
-Note that I don't put `author` in `autoTimeStamp`. As I mentioned, it will be set to `book.author` automatically.
+#### Set Author for Each Article
 
-### Set Author for Each Article
-
-I tend to put settings in `book.json` rather than using filters as in the previous version. Only when you want to set author for each article, add this line of code at the top of the article
+You can also set author of article manually.
 
 ```
 {% set author = "Hao" %}
@@ -88,6 +87,21 @@ content
 .
 .
 ```
+
+### Auto Copyright
+
+```json
+"pluginsConfig": {
+      "gitbook-plugin-signature":{
+          "autoCopyright":{
+             "color":"gray",
+             "owner":"Hao",
+             "center":true
+          }
+      }
+}
+```
+`autoCoyright.author` will be set to `book.author` if no specified.
 
 ### Customize signature
 
@@ -107,9 +121,13 @@ You can set your customized signature content in `book.json` and use it in `.md`
 
 #### .md file
 
-```markdown
+```
 {{'key'|signature}}
+```
+
 or the simplified version
+
+```
 {{'key'|s}}
 ```
 
@@ -122,6 +140,12 @@ gitbook-plugin-signature is freely distributable under the terms of the [MIT lic
 ---------------------
 
 ## Change Log
+
+### 1.5.0
+
+Default author of each article is set to the last git committer of the file.
+#### book.json
+- remove ~~`autoTimeStamp.author`~~
 
 ### 1.4.2
 
