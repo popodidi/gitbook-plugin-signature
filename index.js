@@ -2,7 +2,7 @@
  * [moment: the moment module]
  * @type {[type]}
  */
-
+"use strict";
 const moment = require('moment');
 const debug = require('debug')('gitbook-plugin-signature');
 const _ = require('lodash');
@@ -12,17 +12,11 @@ const GitCommandLine = require('git-command-line');
  * @type {Object}
  */
 
-module.exports = {
-    // Extend templating blocks
-    blocks: {
-        // Author will be able to write "{% title %}World{% endtitle %}"
-        title: {
-            process: function (block) {
-                return "Hello " + block.body;
-            }
-        }
-    },
+function formatSignature(key) {
+  return this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
+}
 
+module.exports = {
     // Extend templating filters
     filters: {
         dateFormat: function (d, format, utc) {
@@ -30,19 +24,11 @@ module.exports = {
         },
 
         copyright: function (organization) {
-            const copyright = '<br><br><br><font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
-            return '\n\n\n\n\n\n\n' + '<center>' + copyright + '</center>';
+            const copyright = '<br><br><br><span style="color:grey">Copyright © ' + organization + '<br>All rights reserved.</span>';
+            return '\n\n\n\n\n\n\n' + '<span style="text-align: center">' + copyright + '</span>';
         },
-        signature: function (key) {
-            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
-            return signature;
-        },
-        s: function (key) {
-            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
-            return signature;
-        }
-
-
+        signature: formatSignature,
+        s: formatSignature
     },
 
     // Hook process during build
@@ -73,8 +59,7 @@ module.exports = {
             var Git = new GitCommandLine('/tmp/gitTemp');
             return Git.log([page.path], []).then(function (log) {
                 const res = log.res;
-                var author = _.get(_.split(_.get(_.split(res, '\nAuthor: ', 2), '[1]'), ' <', 1), ['0']);
-                return author;
+                return _.get(_.split(_.get(_.split(res, '\nAuthor: ', 2), '[1]'), ' <', 1), ['0']);
             }).then(function (author) {
                 if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp) {
                     var timeStampFormat = defaultOption.format;
@@ -86,9 +71,9 @@ module.exports = {
                         color = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.color;
                     }
 
-                    const colorLeft = ' <font color=\"' + color + '\">';
+                    const colorLeft = ' <span style="color:' + color + '">';
                     var autolastModified = colorLeft + 'last modified by ' + author;
-                    const autoTimeStamp = '{{ file.mtime | dateFormat("' + timeStampFormat + '", ' + defaultOption.utcOffset + ') }}</font>';
+                    const autoTimeStamp = '{{ file.mtime | dateFormat("' + timeStampFormat + '", ' + defaultOption.utcOffset + ') }}</span>';
 
                     if (page.content.indexOf('{% set author') != -1) {
                         author = '{{author}}';
@@ -106,22 +91,24 @@ module.exports = {
                 if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright) {
                     var owner = book.config.get('author');
                     const year = '{{ file.mtime | dateFormat("' + 'YYYY' + '", ' + defaultOption.utcOffset + ') }}';
-                    var centerLeft, centerRight = '';
+                    var style = "";
 
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner) {
                         owner = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner;
+                        if (owner.toString().endsWith('.')) {
+                            owner = owner.slice(0, -1);
+                        }
                     }
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.center) {
-                        centerLeft = '<center>';
-                        centerRight = '</center>';
+                        style += 'text-align: center;';
                     }
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color) {
                         color = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color;
                     }
 
-                    const colorLeft = ' <font color=\"' + color + '\">';
+                    style += 'color:' + color + ';';
 
-                    page.content = page.content + '\n\n\n\n<br><br>' + centerLeft + colorLeft + 'Copyright © ' + year + ' ' + owner + '.' + '<br>All rights reserved.</font>' + centerRight;
+                    page.content = page.content + '\n\n\n\n<br><br><div style="' + style + '">Copyright © ' + year + ' ' + owner + '.' + '<br>All rights reserved.</div>';
                 }
                 return page;
             }).fail(function (err) {
