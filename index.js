@@ -71,9 +71,9 @@ module.exports = {
                         color = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp.color;
                     }
 
-                    const colorLeft = ' <font color=\"' + color + '\">';
+                    const colorLeft = ' <span style="color:' + color + '">';
                     var autolastModified = colorLeft + 'last modified by ' + author;
-                    const autoTimeStamp = '{{ file.mtime | dateFormat("' + timeStampFormat + '", ' + defaultOption.utcOffset + ') }}</font>';
+                    const autoTimeStamp = '{{ file.mtime | dateFormat("' + timeStampFormat + '", ' + defaultOption.utcOffset + ') }}</span>';
 
                     if (page.content.indexOf('{% set author') != -1) {
                         author = '{{author}}';
@@ -91,22 +91,24 @@ module.exports = {
                 if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright) {
                     var owner = book.config.get('author');
                     const year = '{{ file.mtime | dateFormat("' + 'YYYY' + '", ' + defaultOption.utcOffset + ') }}';
-                    var centerLeft, centerRight = '';
+                    var style = "";
 
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner) {
                         owner = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.owner;
+                        if (owner.toString().endsWith('.')) {
+                            owner = owner.slice(0, -1);
+                        }
                     }
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.center) {
-                        centerLeft = '<center>';
-                        centerRight = '</center>';
+                        style += 'text-align: center;';
                     }
                     if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color) {
                         color = book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoCopyright.color;
                     }
 
-                    const colorLeft = ' <font color=\"' + color + '\">';
+                    style += 'color:' + color + ';';
 
-                    page.content = page.content + '\n\n\n\n<br><br>' + centerLeft + colorLeft + 'Copyright © ' + year + ' ' + owner + '.' + '<br>All rights reserved.</font>' + centerRight;
+                    page.content = page.content + '\n\n\n\n<br><br><div style="' + style + '">Copyright © ' + year + ' ' + owner + '.' + '<br>All rights reserved.</div>';
                 }
                 return page;
             }).fail(function (err) {
