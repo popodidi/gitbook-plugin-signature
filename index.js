@@ -2,7 +2,7 @@
  * [moment: the moment module]
  * @type {[type]}
  */
-
+"use strict";
 const moment = require('moment');
 const debug = require('debug')('gitbook-plugin-signature');
 const _ = require('lodash');
@@ -12,17 +12,11 @@ const GitCommandLine = require('git-command-line');
  * @type {Object}
  */
 
-module.exports = {
-    // Extend templating blocks
-    blocks: {
-        // Author will be able to write "{% title %}World{% endtitle %}"
-        title: {
-            process: function (block) {
-                return "Hello " + block.body;
-            }
-        }
-    },
+function formatSignature(key) {
+  return this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
+}
 
+module.exports = {
     // Extend templating filters
     filters: {
         dateFormat: function (d, format, utc) {
@@ -30,19 +24,11 @@ module.exports = {
         },
 
         copyright: function (organization) {
-            const copyright = '<br><br><br><font color=\"gray\">Copyright © ' + organization + '<br>All rights reserved.</font>';
-            return '\n\n\n\n\n\n\n' + '<center>' + copyright + '</center>';
+            const copyright = '<br><br><br><span style="color:grey">Copyright © ' + organization + '<br>All rights reserved.</span>';
+            return '\n\n\n\n\n\n\n' + '<span style="text-align: center">' + copyright + '</span>';
         },
-        signature: function (key) {
-            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
-            return signature;
-        },
-        s: function (key) {
-            const signature = this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
-            return signature;
-        }
-
-
+        signature: formatSignature,
+        s: formatSignature
     },
 
     // Hook process during build
@@ -73,8 +59,7 @@ module.exports = {
             var Git = new GitCommandLine('/tmp/gitTemp');
             return Git.log([page.path], []).then(function (log) {
                 const res = log.res;
-                var author = _.get(_.split(_.get(_.split(res, '\nAuthor: ', 2), '[1]'), ' <', 1), ['0']);
-                return author;
+                return _.get(_.split(_.get(_.split(res, '\nAuthor: ', 2), '[1]'), ' <', 1), ['0']);
             }).then(function (author) {
                 if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp) {
                     var timeStampFormat = defaultOption.format;
