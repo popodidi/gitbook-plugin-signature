@@ -16,6 +16,8 @@ function formatSignature(key) {
   return this.config.get('pluginsConfig')['gitbook-plugin-signature'].signature[key];
 }
 
+var Git;
+
 module.exports = {
     // Extend templating filters
     filters: {
@@ -38,11 +40,13 @@ module.exports = {
         // This is called before the book is generated
         "init": function () {
             console.log("generating signature......");
+            Git = new GitCommandLine('/tmp/gitTemp');
         },
 
         // This is called after the book generation
         "finish": function () {
             console.log("signature generated!");
+            Git = null;
         },
 
         "page:before": function (page) {
@@ -55,11 +59,8 @@ module.exports = {
             // autoTimeStamp
             // var author = this.config.get('author');
             var book = this;
-
-            var Git = new GitCommandLine('/tmp/gitTemp');
-            return Git.log([page.path], []).then(function (log) {
-                const res = log.res;
-                return _.get(_.split(_.get(_.split(res, '\nAuthor: ', 2), '[1]'), ' <', 1), ['0']);
+            return Git.log('--pretty="%an" -1 ' + page.path, {}).then(function (log) {
+                return log.res;
             }).then(function (author) {
                 if (book.config.get('pluginsConfig')['gitbook-plugin-signature'].autoTimeStamp) {
                     var timeStampFormat = defaultOption.format;
