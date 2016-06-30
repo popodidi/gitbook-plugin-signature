@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Signature by popodidi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Signature</h1>
+      <h2 class="project-tagline">gitbook-plugin-signature</h2>
+      <a href="https://github.com/popodidi/gitbook-plugin-signature" class="btn">View on GitHub</a>
+      <a href="https://github.com/popodidi/gitbook-plugin-signature/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/popodidi/gitbook-plugin-signature/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="gitbook-plugin-signature" class="anchor" href="#gitbook-plugin-signature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>gitbook-plugin-signature</h1>
+
+<p>This is a plugin for automatically adding timestamp and copyright terms at the top and the bottom of every article. For now, it is using body font and you can specify the color, copyright owner and author of each article.</p>
+
+<p>Feel free to create issues or pull request for any discussion.</p>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Example</h2>
+
+<h3>
+<a id="md-file" class="anchor" href="#md-file" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>.md file</h3>
+
+<pre><code>{% set author = "Hao" %}
+# Title of the Article
+
+content
+.
+.
+</code></pre>
+
+<h3>
+<a id="output" class="anchor" href="#output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Output</h3>
+
+<blockquote>
+<p>last modified by Hao, 2016/05/05 05:05:05</p>
+
+<h1>
+<a id="title-of-the-article" class="anchor" href="#title-of-the-article" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Title of the Article</h1>
+
+<p>content<br>
+.<br>
+.<br>
+.<br>
+<br>
+<br></p>
+
+<p></p>Copyright © 2016 Hao.<br>All rights reserved.
+</blockquote>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="bookjson" class="anchor" href="#bookjson" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>book.json</h3>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>plugins<span class="pl-pds">"</span></span>: [<span class="pl-s"><span class="pl-pds">"</span>signature<span class="pl-pds">"</span></span>]</pre></div>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>pluginsConfig<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>gitbook-plugin-signature<span class="pl-pds">"</span></span>:{
+          <span class="pl-s"><span class="pl-pds">"</span>autoTimeStamp<span class="pl-pds">"</span></span>:{
+            <span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gray<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>timeStampFormat<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>YYYY/MM/DD HH:mm:ss<span class="pl-pds">"</span></span>
+          },
+          <span class="pl-s"><span class="pl-pds">"</span>autoCopyright<span class="pl-pds">"</span></span>:{
+             <span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gray<span class="pl-pds">"</span></span>,
+             <span class="pl-s"><span class="pl-pds">"</span>owner<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Hao<span class="pl-pds">"</span></span>,
+             <span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>:<span class="pl-c1">true</span>
+          },
+          <span class="pl-s"><span class="pl-pds">"</span>signature<span class="pl-pds">"</span></span>:{
+            <span class="pl-s"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>customized signature<span class="pl-pds">"</span></span>
+          }
+      }
+}</pre></div>
+
+<p>If you don't want to automatically add timestamp or copyright, simply drop the part in <code>pluginsConfig</code>.</p>
+
+<h3>
+<a id="auto-timestamp" class="anchor" href="#auto-timestamp" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auto Timestamp</h3>
+
+<p>Default author of each article will be set to the last git commiter of the file.<br></p>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>pluginsConfig<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>gitbook-plugin-signature<span class="pl-pds">"</span></span>:{
+          <span class="pl-s"><span class="pl-pds">"</span>autoTimeStamp<span class="pl-pds">"</span></span>:{
+            <span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gray<span class="pl-pds">"</span></span>,
+            <span class="pl-s"><span class="pl-pds">"</span>timeStampFormat<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>YYYY/MM/DD HH:mm:ss<span class="pl-pds">"</span></span>
+          }
+      }
+  }</pre></div>
+
+<h4>
+<a id="set-author-for-each-article" class="anchor" href="#set-author-for-each-article" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Set Author for Each Article</h4>
+
+<p>You can also set author of article manually.</p>
+
+<pre><code>{% set author = "Hao" %}
+# Title of the Article
+
+content
+.
+.
+</code></pre>
+
+<h3>
+<a id="auto-copyright" class="anchor" href="#auto-copyright" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Auto Copyright</h3>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>pluginsConfig<span class="pl-pds">"</span></span>: {
+      <span class="pl-s"><span class="pl-pds">"</span>gitbook-plugin-signature<span class="pl-pds">"</span></span>:{
+          <span class="pl-s"><span class="pl-pds">"</span>autoCopyright<span class="pl-pds">"</span></span>:{
+             <span class="pl-s"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>gray<span class="pl-pds">"</span></span>,
+             <span class="pl-s"><span class="pl-pds">"</span>owner<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>Hao<span class="pl-pds">"</span></span>,
+             <span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>:<span class="pl-c1">true</span>
+          }
+      }
+}</pre></div>
+
+<p><code>autoCoyright.author</code> will be set to <code>book.author</code> if no specified.</p>
+
+<h3>
+<a id="customize-signature" class="anchor" href="#customize-signature" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Customize signature</h3>
+
+<p>You can set your customized signature content in <code>book.json</code> and use it in <code>.md</code> files.</p>
+
+<h4>
+<a id="bookjson-1" class="anchor" href="#bookjson-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>book.json</h4>
+
+<div class="highlight highlight-source-json"><pre><span class="pl-s"><span class="pl-pds">"</span>pluginsConfig<span class="pl-pds">"</span></span>: {
+    <span class="pl-s"><span class="pl-pds">"</span>gitbook-plugin-signature<span class="pl-pds">"</span></span>:{
+        <span class="pl-s"><span class="pl-pds">"</span>signature<span class="pl-pds">"</span></span>:{
+            <span class="pl-s"><span class="pl-pds">"</span>key<span class="pl-pds">"</span></span>: <span class="pl-s"><span class="pl-pds">"</span>customized signature<span class="pl-pds">"</span></span>
+        }
+    }
+}</pre></div>
+
+<h4>
+<a id="md-file-1" class="anchor" href="#md-file-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>.md file</h4>
+
+<pre><code>{{'key'|signature}}
+</code></pre>
+
+<p>or the simplified version</p>
+
+<pre><code>{{'key'|s}}
+</code></pre>
+
+<h2>
+<a id="liscence" class="anchor" href="#liscence" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Liscence</h2>
+
+<p>gitbook-plugin-signature is freely distributable under the terms of the <a href="https://github.com/popodidi/gitbook-plugin-signature/blob/master/LICENSE">MIT license</a>.</p>
+
+<h2>
+<a id="authorcontributor" class="anchor" href="#authorcontributor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author/Contributor</h2>
+
+<ul>
+<li>Hao(<a href="https://github.com/popodidi" class="user-mention">@popodidi</a>)</li>
+<li>Zachary(<a href="https://github.com/zachary822" class="user-mention">@zachary822</a>)</li>
+</ul>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/popodidi/gitbook-plugin-signature">Signature</a> is maintained by <a href="https://github.com/popodidi">popodidi</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
