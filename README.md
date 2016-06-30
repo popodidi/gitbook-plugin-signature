@@ -131,8 +131,6 @@ or the simplified version
 {{'key'|s}}
 ```
 
----------------------
-
 ## Liscence
 
 gitbook-plugin-signature is freely distributable under the terms of the [MIT license](https://github.com/popodidi/gitbook-plugin-signature/blob/master/LICENSE).
